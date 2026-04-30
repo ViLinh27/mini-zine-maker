@@ -1,4 +1,4 @@
-from PIL import Image, ImageOps
+from PIL import Image, ImageOps,ImageDraw
 
 #this is how the layout works in landscape:
 ZINE_LAYOUT=[
