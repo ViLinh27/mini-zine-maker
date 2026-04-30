@@ -71,6 +71,7 @@ Users are gonna upload images with different aspect ratios that may not always f
 #### zine_layout.py
 
 - handles layout functions like fit_img_to_cell() or create_zine_sheet()
+- arranges 8 pages and makes sure the placement and rotation is correct for printable
 
 #### requirements.txt
 
@@ -80,3 +81,38 @@ Users are gonna upload images with different aspect ratios that may not always f
 #### Readme.md
 
 - notes
+
+## Testing
+
+How to test the python before implementing streamlit with some test images
+
+Start with the zine_latyout.py, since this is in charge of arranging images to make sure the layout is correct on the printable.
+
+Make a test script to go along side the test images and make sure the scripts in the zine_layout.py works well.
+
+If that works fine then I can move on to adding the streamlit part for user interactivity.
+
+## Issues I've encountered.
+
+I wasn't sure how to test the python (no streamlit yet) yet so had to look up some stuff to realize that I would need a standalone test script and some dummy images to make sure the zine_layout.py worked by itself. After getting the images to finally work the main issue I have so far is a Traceback (at least the images load fine).
+
+```
+Uploading the test images from the folder...
+creating zine sheet with test images...
+Traceback (most recent call last):
+  File "/Users/vi-linhnguyen/python_miniprojects/mini-zine-maker/test.py", line 28, in <module>
+    run_test()
+  File "/Users/vi-linhnguyen/python_miniprojects/mini-zine-maker/test.py", line 20, in run_test
+    zine_sheet = create_zine_sheet(img_arr, fit_mode = "contain", draw_guides=True)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vi-linhnguyen/python_miniprojects/mini-zine-maker/zine_layout.py", line 49, in create_zine_sheet
+    prepped_pages[i] = fit_img_to_cell(page_images[i-1], CELL_W, CELL_H, mode=fit_mode)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/vi-linhnguyen/python_miniprojects/mini-zine-maker/zine_layout.py", line 24, in fit_img_to_cell
+    img = ImageOps.exif_transpose(img).convert("RGB")# automatically rotates/flips image to correct orientation based on its exif orientatition tag
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/site-packages/PIL/ImageOps.py", line 699, in exif_transpose
+    image.load()
+    ^^^^^^^^^^
+AttributeError: 'numpy.ndarray' object has no attribute 'load'
+```
