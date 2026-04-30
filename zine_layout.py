@@ -30,7 +30,7 @@ def fit_img_to_cell(img, cell_w, cell_h, mode="contain"):
         page.paste(img, (x,y))# paste the resized image onto a white background
         return page
     
-    if mode == "cover":
+    if mode == "cover": # this where image covers entire page cell and may be cropped
         return ImageOps.fit(
             img,
             (cell_w,cell_h),
@@ -38,13 +38,38 @@ def fit_img_to_cell(img, cell_w, cell_h, mode="contain"):
             centering=(0.5,0.5),
         )
     
-def create_zine_sheet(page_images,fit_mode="contain", draw_guides = True):
+def create_zine_sheet(page_images,fit_mode="contain", draw_guides = True):#takes pages and arranges them in zine layout
     canvas = Image.new("RGB", (SHEET_W, SHEET_H), "white")
     draw = ImageDraw.Draw(canvas)
     #to make sure we have 8 pages, any missing, will be blank:
-    prepped_pages = {}
-    for i in range(1,9):
+    prepped_pages = {}# these pages have been rotated and arranged as needed
+    for i in range(1,9):#goes through up to 8 uploaded images, fewer will be left blank hence the else
         if i<=len(page_images):
+            #calls the other func to process each page/img
             prepped_pages[i] = fit_img_to_cell(page_images[i-1], CELL_W, CELL_H, mode=fit_mode)
         else:
             prepped_pages[i] = Image.new("RGB",(CELL_W,CELL_H),"white")
+
+    for item in ZINE_LAYOUT: #helps track what each page is where it goes on sheet
+        #each feature of page to track
+        page_num = item["page"]
+        row = item["row"]
+        col = item["col"]
+        rotation = item["rotate"]
+
+        page = prepped_pages[page_num]#the processed pages will use page number as the key to track where it will go in layout
+        if rotation:
+            page = page.rotate(rotation, expand=False)
+
+        x = col * CELL_W
+        y = row * CELL_H
+        canvas.paste(page,(x,y))
+
+    if draw_guides:#in case i want to add guides for folding/cutting on the printable final layout
+        draw.rectangle(
+            [x,y,x+ CELL_W, y+ CELL_H],
+            outline = "lightgray",
+            width = 3,
+        )
+
+    return canvas
