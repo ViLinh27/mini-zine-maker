@@ -8,39 +8,39 @@ The goal is to allow users to upload images to turn into a one paper mini zine t
 
 ### Uploading
 
--- Let Users upload 1-8 images with optional reordering
--- uses streamlit here
+- Let Users upload 1-8 images with optional reordering
+- uses streamlit here
 
 ### Page prepping
 
--- Reszie, crop, pad, rotate and normalize images (as needed)
---uses Pillow (for image manipulation)
+- Reszie, crop, pad, rotate and normalize images (as needed)
+- uses Pillow (for image manipulation)
 
 ### Zine Layout
 
--- Places 8 pages into correct printable positions
--- Uses Pillow
--- Have the Option of using reportlab
+- Places 8 pages into correct printable positions
+- Uses Pillow
+- Have the Option of using reportlab
 
 ### Exporting
 
--- generate downloadable printable
--- uses pdf via reportlab/ png via pillow
--- -- probablly gonna start with png first and see if pdf is doable later
+- generate downloadable printable
+- uses pdf via reportlab/ png via pillow
+  - probablly gonna start with png first and see if pdf is doable later
 
 ## Stack Basics and why
 
 ### Streamlit
 
--- has widgets users can interact with
+- has widgets users can interact with
 
 ### Pillow
 
--- handles actual canvas drawing/ image manipulation
+- handles actual canvas drawing/ image manipulation
 
 ### Reportlab
 
--- can convert final layout into proper pdf (optional)
+- can convert final layout into proper pdf (optional)
 
 ## About the Image Fitting logic
 
@@ -54,29 +54,29 @@ Users are gonna upload images with different aspect ratios that may not always f
 
 ### Recommended way to go:
 
--- start with contain behaviour
--- add fill/crop behaviour after everything works
+- start with contain behaviour
+- add fill/crop behaviour after everything works
 
 ## Project Structure
 
--- Keep streamlit interface separate from layout logic to make sure nothing is brittle.
--- Every file will have its own responsiblity basically.
+- Keep streamlit interface separate from layout logic to make sure nothing is brittle.
+- Every file will have its own responsiblity basically.
 
 ### The files and what each do
 
 #### app.py
 
--- handles UI
+- handles UI
 
 #### zine_layout.py
 
--- handles layout functions like fit_img_to_cell() or create_zine_sheet()
+- handles layout functions like fit_img_to_cell() or create_zine_sheet()
 
 #### requirements.txt
 
--- extra installations
--- styling
+- extra installations
+- styling
 
 #### Readme.md
 
--- notes
+- notes
