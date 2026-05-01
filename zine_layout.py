@@ -38,6 +38,8 @@ def fit_img_to_cell(img, cell_w, cell_h, mode="contain"):
             centering=(0.5,0.5),
         )
     
+    return img
+
 def create_zine_sheet(page_images,fit_mode="contain", draw_guides = True):#takes pages and arranges them in zine layout
     canvas = Image.new("RGB", (SHEET_W, SHEET_H), "white")
     draw = ImageDraw.Draw(canvas)

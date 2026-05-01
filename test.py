@@ -16,6 +16,17 @@ def run_test():
     
     img_arr = np.array(img_list)
 
+    print(f"number of images uploaded: {len(img_arr)}")#debug
+    '''
+    print(f"image shape: {img_arr[0].shape}")#debug
+    print(f"image shape: {img_arr[1].shape}")#debug
+    print(f"image shape: {img_arr[2].shape}")#debug
+    print(f"image shape: {img_arr[3].shape}")#debug
+    print(f"image shape: {img_arr[4].shape}")#debug
+    print(f"image shape: {img_arr[5].shape}")#debug
+    print(f"image shape: {img_arr[6].shape}")#debug
+    print(f"image shape: {img_arr[7].shape}")#debug
+    '''
     print("creating zine sheet with test images...")
     zine_sheet = create_zine_sheet(img_arr, fit_mode = "contain", draw_guides=True)
 
