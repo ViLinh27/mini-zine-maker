@@ -1,16 +1,18 @@
 from PIL import Image, ImageOps,ImageDraw
-
+from natsort import natsorted
 #this is how the layout works in landscape:
-ZINE_LAYOUT=[
-    {"page":1,"row":0,"col":0,"rotate":180},
-    {"page":8,"row":0,"col":1,"rotate":180},
-    {"page":7,"row":0,"col":2,"rotate":180},
-    {"page":6,"row":0,"col":3,"rotate":180},
-    {"page":2,"row":1,"col":0,"rotate":0},
-    {"page":3,"row":1,"col":1,"rotate":0},
-    {"page":4,"row":1,"col":2,"rotate":0},
-    {"page":5,"row":1,"col":3,"rotate":0},
+
+ZINE_LAYOUT = [
+    {"page": 1, "row": 0, "col": 0, "rotate": 180},
+    {"page": 8, "row": 0, "col": 1, "rotate": 180},
+    {"page": 7, "row": 0, "col": 2, "rotate": 180},
+    {"page": 6, "row": 0, "col": 3, "rotate": 180},
+    {"page": 2, "row": 1, "col": 0, "rotate": 0},
+    {"page": 3, "row": 1, "col": 1, "rotate": 0},
+    {"page": 4, "row": 1, "col": 2, "rotate": 0},
+    {"page": 5, "row": 1, "col": 3, "rotate": 0},
 ]
+
 #These are dimensions in landscape:
 DPI = 300
 SHEET_W = int(11*DPI)
@@ -47,11 +49,13 @@ def create_zine_sheet(page_images,fit_mode="contain", draw_guides = True):#takes
     prepped_pages = {}# these pages have been rotated and arranged as needed
     for i in range(1,9):#goes through up to 8 uploaded images, fewer will be left blank hence the else
         if i<=len(page_images):
+            #print("page name: "+page_images[i].filename)#debug
             #calls the other func to process each page/img
             prepped_pages[i] = fit_img_to_cell(page_images[i-1], CELL_W, CELL_H, mode=fit_mode)
         else:
             prepped_pages[i] = Image.new("RGB",(CELL_W,CELL_H),"white")
 
+    prepped_pages = natsorted(prepped_pages.items())#sorts the pages in natural order so they will be arranged correctly in the layout, and not just in order of how they were uploaded
     for item in ZINE_LAYOUT: #helps track what each page is where it goes on sheet
         #each feature of page to track
         page_num = item["page"]
@@ -59,6 +63,8 @@ def create_zine_sheet(page_images,fit_mode="contain", draw_guides = True):#takes
         col = item["col"]
         rotation = item["rotate"]
 
+        print("page index: "+str(page_num))#debug
+        #print("page name: "+str(prepped_pages[page_num]))#debug
         page = prepped_pages[page_num]#the processed pages will use page number as the key to track where it will go in layout
         if rotation:
             page = page.rotate(rotation, expand=False)

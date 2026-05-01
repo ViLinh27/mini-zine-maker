@@ -12,25 +12,24 @@ def run_test():
 
     for filename in glob.glob(path):
         img = Image.open(filename)
-        img_list.append(np.array(img))
+        img_list.append(img)
     
-    img_arr = np.array(img_list)
+   #img_arr = np.array(img_list)
+    img_arr = img_list
 
     print(f"number of images uploaded: {len(img_arr)}")#debug
-    '''
-    print(f"image shape: {img_arr[0].shape}")#debug
-    print(f"image shape: {img_arr[1].shape}")#debug
-    print(f"image shape: {img_arr[2].shape}")#debug
-    print(f"image shape: {img_arr[3].shape}")#debug
-    print(f"image shape: {img_arr[4].shape}")#debug
-    print(f"image shape: {img_arr[5].shape}")#debug
-    print(f"image shape: {img_arr[6].shape}")#debug
-    print(f"image shape: {img_arr[7].shape}")#debug
-    '''
+    """ print(f"image name: {img_arr[0].filename}")#debug
+    print(f"image name: {img_arr[1].filename}")#debug
+    print(f"image name: {img_arr[2].filename}")#debug
+    print(f"image name: {img_arr[3].filename}")#debug
+    print(f"image name: {img_arr[4].filename}")#debug
+    print(f"image name: {img_arr[5].filename}")#debug
+    print(f"image name: {img_arr[6].filename}")#debug
+    print(f"image name: {img_arr[7].filename}")#debug """
     print("creating zine sheet with test images...")
     zine_sheet = create_zine_sheet(img_arr, fit_mode = "contain", draw_guides=True)
 
-    output_path = "test_zine_sheet01.png"
+    output_path = "test_zine_sheet09.png"
     zine_sheet.save(output_path)
     print(f"Zine sheet saved as {output_path}")
     print(f"dimensions to check: {zine_sheet.size[0]}x{zine_sheet.size[1]} pixels")

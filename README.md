@@ -116,3 +116,21 @@ Traceback (most recent call last):
     ^^^^^^^^^^
 AttributeError: 'numpy.ndarray' object has no attribute 'load'
 ```
+
+The issue to my understanding above with the image.load() and the AttributeError where numpy.ndarray object has no attribute load was how I was appending the images to the image array inside run_test in the test script. It was pretty redundant and messed with how the images would later be used once they were uploaded. Instead of
+
+```
+img_list.append(np.array(img))
+```
+
+I would just do
+
+```
+img_list.append(img)
+```
+
+There was another line with the numpy use, but it's the same logic. Just get rid of the numpy and I'm good.
+
+Now the issue is the page layout in the zine printable is off. I'm trying to reorder and fiddle with the zine layout array of objects (with the key value pairs) but that didn't work so far.
+
+The test images (that have numeric value names) are not uploading in order into the array, which means page 1 in the array, is not the page 1 I want, which is why the page orientation and imposition for this zine is off. I didn't consider that python sorts lexigocraphically. A potential solution I found is the natsort library.
