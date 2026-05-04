@@ -7,7 +7,7 @@ import numpy as np
 
 def run_test():
     print("Uploading the test images from the folder...")
-    path="./test-zine-imgs/*png"
+    path="./test-zine-imgs/*.png"
     img_list=[]
 
     for filename in glob.glob(path):
@@ -18,14 +18,14 @@ def run_test():
     img_arr = img_list
 
     print(f"number of images uploaded: {len(img_arr)}")#debug
-    """ print(f"image name: {img_arr[0].filename}")#debug
+    print(f"image name: {img_arr[0].filename}")#debug
     print(f"image name: {img_arr[1].filename}")#debug
     print(f"image name: {img_arr[2].filename}")#debug
     print(f"image name: {img_arr[3].filename}")#debug
     print(f"image name: {img_arr[4].filename}")#debug
     print(f"image name: {img_arr[5].filename}")#debug
     print(f"image name: {img_arr[6].filename}")#debug
-    print(f"image name: {img_arr[7].filename}")#debug """
+    print(f"image name: {img_arr[7].filename}")#debug
     print("creating zine sheet with test images...")
     zine_sheet = create_zine_sheet(img_arr, fit_mode = "contain", draw_guides=True)
 

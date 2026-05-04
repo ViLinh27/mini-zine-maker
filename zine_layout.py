@@ -55,7 +55,7 @@ def create_zine_sheet(page_images,fit_mode="contain", draw_guides = True):#takes
         else:
             prepped_pages[i] = Image.new("RGB",(CELL_W,CELL_H),"white")
 
-    prepped_pages = natsorted(prepped_pages.items())#sorts the pages in natural order so they will be arranged correctly in the layout, and not just in order of how they were uploaded
+    #prepped_pages = natsorted(prepped_pages.items())#sorts the pages in natural order so they will be arranged correctly in the layout, and not just in order of how they were uploaded
     for item in ZINE_LAYOUT: #helps track what each page is where it goes on sheet
         #each feature of page to track
         page_num = item["page"]
@@ -63,7 +63,7 @@ def create_zine_sheet(page_images,fit_mode="contain", draw_guides = True):#takes
         col = item["col"]
         rotation = item["rotate"]
 
-        print("page index: "+str(page_num))#debug
+        #print("page index: "+str(page_num))#debug
         #print("page name: "+str(prepped_pages[page_num]))#debug
         page = prepped_pages[page_num]#the processed pages will use page number as the key to track where it will go in layout
         if rotation:
